@@ -137,3 +137,54 @@ body {
     @apply font-sans;
   }
 }
+
+/* Scroll-triggered reveal animations */
+@keyframes evespireFadeUpScroll {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.evespire-scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.evespire-scroll-reveal.evespire-scroll-revealed {
+  animation: evespireFadeUpScroll 700ms ease-out forwards;
+}
+
+/* Staggered animation delays for child elements */
+.evespire-scroll-reveal.evespire-scroll-revealed .evespire-delay-1 {
+  animation: evespireFadeUpScroll 700ms ease-out forwards;
+  animation-delay: 100ms;
+}
+
+.evespire-scroll-reveal.evespire-scroll-revealed .evespire-delay-2 {
+  animation: evespireFadeUpScroll 700ms ease-out forwards;
+  animation-delay: 200ms;
+}
+
+.evespire-scroll-reveal.evespire-scroll-revealed .evespire-delay-3 {
+  animation: evespireFadeUpScroll 700ms ease-out forwards;
+  animation-delay: 300ms;
+}
+
+.evespire-scroll-reveal.evespire-scroll-revealed .evespire-delay-4 {
+  animation: evespireFadeUpScroll 700ms ease-out forwards;
+  animation-delay: 400ms;
+}
+
+/* Ensure delay children start hidden */
+.evespire-scroll-reveal .evespire-delay-1,
+.evespire-scroll-reveal .evespire-delay-2,
+.evespire-scroll-reveal .evespire-delay-3,
+.evespire-scroll-reveal .evespire-delay-4 {
+  opacity: 0;
+  transform: translateY(30px);
+}

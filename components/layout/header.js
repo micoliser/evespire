@@ -4,7 +4,14 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Pacifico } from "next/font/google";
-import { Mail, MapPin, Menu, Phone, X } from "lucide-react";
+import { Mail, MapPin, Menu, Phone, X, ChevronDown } from "lucide-react";
+const destinations = [
+  { label: "UK & Europe", href: "/study-in-uk-europe" },
+  { label: "United States", href: "/study-in-us" },
+  { label: "Canada", href: "/study-in-canada" },
+  { label: "Australia", href: "/study-in-australia" },
+  { label: "Asia", href: "/study-in-asia" },
+];
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/common/date-picker";
 import { Input } from "@/components/ui/input";
@@ -44,10 +51,12 @@ const appointmentTimes = [
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isAppointmentOpen, setIsAppointmentOpen] = useState(false);
+  const [appointmentSidebarState, setAppointmentSidebarState] =
+    useState("closed"); // "closed" | "opening" | "open" | "closing"
   const [appointmentDate, setAppointmentDate] = useState();
   const [appointmentTime, setAppointmentTime] = useState("");
   const [appointmentMode, setAppointmentMode] = useState("phone call");
+  const [destDropdownOpen, setDestDropdownOpen] = useState(false);
   const pathname = usePathname();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -55,12 +64,20 @@ export function Header() {
   const closeMenu = () => setIsOpen(false);
   const openAppointment = () => {
     setIsOpen(false);
-    setIsAppointmentOpen(true);
+    setAppointmentSidebarState("opening");
+    setTimeout(() => setAppointmentSidebarState("open"), 10);
   };
-  const closeAppointment = () => setIsAppointmentOpen(false);
+  const closeAppointment = () => {
+    setAppointmentSidebarState("closing");
+    setTimeout(() => setAppointmentSidebarState("closed"), 450);
+  };
 
   useEffect(() => {
-    if (!isAppointmentOpen) return;
+    if (
+      appointmentSidebarState !== "open" &&
+      appointmentSidebarState !== "opening"
+    )
+      return;
 
     const handleEscape = (event) => {
       if (event.key === "Escape") {
@@ -75,12 +92,11 @@ export function Header() {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleEscape);
     };
-  }, [isAppointmentOpen]);
+  }, [appointmentSidebarState]);
 
   useEffect(() => {
     const handleOpenAppointment = () => {
       setIsOpen(false);
-      setIsAppointmentOpen(true);
     };
 
     window.addEventListener("evespire:open-appointment", handleOpenAppointment);
@@ -116,6 +132,51 @@ export function Header() {
             >
               Home
             </Link>
+            {/* Destinations Dropdown (Desktop) */}
+            <div className="relative group">
+              <div
+                className="relative"
+                onMouseEnter={() => setDestDropdownOpen(true)}
+                onMouseLeave={() => setDestDropdownOpen(false)}
+                onFocus={() => setDestDropdownOpen(true)}
+                onBlur={() => setDestDropdownOpen(false)}
+                tabIndex={0}
+              >
+                <button
+                  type="button"
+                  className={`flex items-center rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition
+                    ${pathname.startsWith("/study-in-") ? "bg-blue-700 text-white" : "text-blue-700 hover:bg-blue-700 hover:text-white"}
+                  `}
+                  aria-haspopup="true"
+                  aria-expanded={destDropdownOpen}
+                >
+                  Destinations
+                  <ChevronDown
+                    className={`ml-1 h-4 w-4 transition-transform ${destDropdownOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+                <div
+                  className={`absolute left-0 top-full z-40 min-w-[200px] rounded-md border border-slate-200 bg-white shadow-lg transition-all duration-300 ease-in-out origin-top overflow-hidden
+                    ${destDropdownOpen ? "scale-y-100 opacity-100 pointer-events-auto" : "scale-y-95 opacity-0 pointer-events-none"}`}
+                  style={{ transformOrigin: "top" }}
+                >
+                  <div className="py-2">
+                    {destinations.map((dest) => (
+                      <Link
+                        key={dest.href}
+                        href={dest.href}
+                        className={`block w-full px-4 py-2 text-left text-sm transition
+                          ${pathname === dest.href ? "bg-blue-700 text-white" : "text-blue-700 hover:bg-blue-700 hover:text-white"}
+                        `}
+                        onClick={() => setDestDropdownOpen(false)}
+                      >
+                        {dest.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
             <Link
               href="/about"
               className={`rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition ${
@@ -161,6 +222,7 @@ export function Header() {
           className={`overflow-hidden border-t border-slate-200 bg-white transition-all duration-700 ease-out md:hidden ${
             isOpen ? "max-h-[30rem] opacity-100" : "max-h-0 opacity-0"
           }`}
+          style={{ position: "static" }}
         >
           <nav className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-4 sm:px-6">
             <Link
@@ -174,6 +236,31 @@ export function Header() {
             >
               Home
             </Link>
+            {/* Destinations Dropdown (Mobile) */}
+            <details className="group" open={pathname.startsWith("/study-in-")}>
+              <summary
+                className={`flex cursor-pointer items-center rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition select-none
+                  ${pathname.startsWith("/study-in-") ? "bg-blue-700 text-white" : "text-blue-700 hover:bg-blue-700 hover:text-white"}
+                `}
+              >
+                Destinations
+                <ChevronDown className="ml-1 h-4 w-4 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="pl-4 pb-2 pt-1 flex flex-col gap-1">
+                {destinations.map((dest) => (
+                  <Link
+                    key={dest.href}
+                    href={dest.href}
+                    className={`rounded-md px-3 py-2 text-sm font-medium transition
+                      ${pathname === dest.href ? "bg-blue-700 text-white" : "text-blue-700 hover:bg-blue-700 hover:text-white"}
+                    `}
+                    onClick={closeMenu}
+                  >
+                    {dest.label}
+                  </Link>
+                ))}
+              </div>
+            </details>
             <Link
               href="/about"
               className={`rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition ${
@@ -208,7 +295,9 @@ export function Header() {
         </div>
       </header>
 
-      {isAppointmentOpen && (
+      {(appointmentSidebarState === "opening" ||
+        appointmentSidebarState === "open" ||
+        appointmentSidebarState === "closing") && (
         <div className="fixed inset-0 z-[70]">
           <button
             type="button"
@@ -221,7 +310,8 @@ export function Header() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="appointment-title"
-            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-blue-600/40 bg-gradient-to-b from-blue-900 via-blue-800 to-slate-900 text-blue-50 shadow-2xl"
+            className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-blue-600/40 bg-gradient-to-b from-blue-900 via-blue-800 to-slate-900 text-blue-50 shadow-2xl transition-transform duration-450 will-change-transform
+              ${appointmentSidebarState === "opening" || appointmentSidebarState === "open" ? "animate-appointment-slidein" : "animate-appointment-slideout"}`}
           >
             <div className="border-b border-blue-700/60 px-5 py-10">
               <div className="flex items-center justify-between">

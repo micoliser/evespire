@@ -1,3 +1,38 @@
+@keyframes appointment-slideout {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0.5;
+  }
+}
+
+.animate-appointment-slideout {
+  animation: appointment-slideout 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+@keyframes appointment-slidein {
+  from {
+    transform: translateX(100%);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-appointment-slidein {
+  animation: appointment-slidein 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Force WhatsApp advisor button to stay blue on hover/focus/active */
+.advisor-whatsapp:hover,
+.advisor-whatsapp:focus,
+.advisor-whatsapp:active {
+  background-color: #1d4ed8 !important; /* blue-700 */
+  color: #fff !important;
+}
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";

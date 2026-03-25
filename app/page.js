@@ -76,24 +76,28 @@ const pathwaySteps = [
 const destinationCards = [
   {
     country: "United Kingdom",
+    href: "/study-in-uk-europe",
     flag: "https://flagcdn.com/w80/gb.png",
     intake: "Main Intake: Sep",
     note: "Top pick for one-year masters and strong employability pathways.",
   },
   {
     country: "Canada",
+    href: "/study-in-canada",
     flag: "https://flagcdn.com/w80/ca.png",
     intake: "Intakes: Jan, May, Sep",
     note: "Popular for quality education and post-study work opportunities.",
   },
   {
     country: "Australia",
+    href: "/study-in-australia",
     flag: "https://flagcdn.com/w80/au.png",
     intake: "Intakes: Feb, Jul",
     note: "Great option for practical learning and student-friendly cities.",
   },
   {
     country: "Germany",
+    href: "/study-in-uk-europe",
     flag: "https://flagcdn.com/w80/de.png",
     intake: "Intakes: Apr, Oct",
     note: "Excellent for engineering and affordable public university routes.",
@@ -484,6 +488,12 @@ export default function Home() {
                     <p className="mt-3 text-sm text-slate-200">
                       {destination.note}
                     </p>
+                    <Link
+                      href={destination.href}
+                      className="mt-4 inline-flex text-sm font-semibold text-cyan-300 transition hover:text-cyan-200"
+                    >
+                      Learn more
+                    </Link>
                   </CardContent>
                 </Card>
               ))}

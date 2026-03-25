@@ -12,11 +12,11 @@ const quickLinks = [
 ];
 
 const destinationLinks = [
-  { label: "Study in UK", href: "#" },
-  { label: "Study in Canada", href: "#" },
-  { label: "Study in Australia", href: "#" },
-  { label: "Study in Germany", href: "#" },
-  { label: "Study in USA", href: "#" },
+  { label: "Study in UK/Europe", href: "/study-in-uk-europe" },
+  { label: "Study in US", href: "/study-in-us" },
+  { label: "Study in Canada", href: "/study-in-canada" },
+  { label: "Study in Australia", href: "/study-in-australia" },
+  { label: "Study in Asia", href: "/study-in-asia" },
 ];
 
 const supportLinks = [

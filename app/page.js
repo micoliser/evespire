@@ -196,6 +196,10 @@ export default function Home() {
     return { ...base, animationDelay: `${delayMs}ms` };
   };
 
+  const openAppointmentSidebar = () => {
+    window.dispatchEvent(new Event("evespire:open-appointment"));
+  };
+
   return (
     <main className="bg-white">
       <section className="relative min-h-[calc(100vh-5rem)] overflow-hidden">
@@ -529,11 +533,13 @@ export default function Home() {
           </div>
 
           <div className="evespire-delay-2">
-            <Link href="/contact" className="inline-flex">
-              <Button className="h-14 rounded-xl bg-white px-8 text-base font-semibold text-blue-700 hover:bg-blue-50">
-                Book Free Consultation
-              </Button>
-            </Link>
+            <Button
+              type="button"
+              onClick={openAppointmentSidebar}
+              className="h-14 rounded-xl bg-white px-8 text-base font-semibold text-blue-700 hover:bg-blue-50"
+            >
+              Book Free Consultation
+            </Button>
           </div>
         </div>
       </ScrollRevealSection>

@@ -283,7 +283,7 @@ export default function AboutPage() {
           <div className="evespire-delay-2">
             <Link href="/contact" className="inline-flex">
               <Button className="h-12 rounded-xl bg-white px-8 text-base font-semibold text-blue-700">
-                Contact Evespire
+                Send us a message
               </Button>
             </Link>
           </div>

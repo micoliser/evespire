@@ -96,11 +96,11 @@ const destinationCards = [
     note: "Great option for practical learning and student-friendly cities.",
   },
   {
-    country: "Germany",
-    href: "/study-in-uk-europe",
-    flag: "https://flagcdn.com/w80/de.png",
-    intake: "Intakes: Apr, Oct",
-    note: "Excellent for engineering and affordable public university routes.",
+    country: "United States",
+    href: "/study-in-us",
+    flag: "https://flagcdn.com/w80/us.png",
+    intake: "Intakes: Jan, Sep",
+    note: "World leader in research, innovation, and campus diversity.",
   },
 ];
 
@@ -285,9 +285,9 @@ export default function Home() {
                 loading="lazy"
               />
               <img
-                src="https://flagcdn.com/w80/us.png"
-                alt="United States flag"
-                title="United States"
+                src="https://flagcdn.com/w80/kr.png"
+                alt="South Korea flag"
+                title="Asia"
                 className="h-7 w-11 rounded-sm object-cover shadow-md sm:h-8 sm:w-12"
                 loading="lazy"
               />
@@ -299,9 +299,9 @@ export default function Home() {
                 loading="lazy"
               />
               <img
-                src="https://flagcdn.com/w80/de.png"
-                alt="Germany flag"
-                title="Germany"
+                src="https://flagcdn.com/w80/us.png"
+                alt="United States flag"
+                title="United States"
                 className="h-7 w-11 rounded-sm object-cover shadow-md sm:h-8 sm:w-12"
                 loading="lazy"
               />

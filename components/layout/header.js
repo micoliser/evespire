@@ -97,6 +97,7 @@ export function Header() {
   useEffect(() => {
     const handleOpenAppointment = () => {
       setIsOpen(false);
+      openAppointment();
     };
 
     window.addEventListener("evespire:open-appointment", handleOpenAppointment);

@@ -12,6 +12,14 @@ const destinations = [
   { label: "Australia", href: "/study-in-australia" },
   { label: "Asia", href: "/study-in-asia" },
 ];
+
+const services = [
+  { label: "Application Guidance", href: "/services/application-guidance" },
+  { label: "Visa Assistance", href: "/services/visa-assistance" },
+  { label: "Pre-departure Support", href: "/services/pre-departure-support" },
+  { label: "Scholarship Advice", href: "/services/scholarship-advice" },
+  { label: "Parent Consultation", href: "/services/parent-consultation" },
+];
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/common/date-picker";
 import { Input } from "@/components/ui/input";
@@ -57,6 +65,7 @@ export function Header() {
   const [appointmentTime, setAppointmentTime] = useState("");
   const [appointmentMode, setAppointmentMode] = useState("phone call");
   const [destDropdownOpen, setDestDropdownOpen] = useState(false);
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
   const pathname = usePathname();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -133,6 +142,57 @@ export function Header() {
             >
               Home
             </Link>
+            {/* Services Dropdown (Desktop) */}
+            <div className="relative group">
+              <div
+                className="relative"
+                onMouseEnter={() => setServicesDropdownOpen(true)}
+                onMouseLeave={() => setServicesDropdownOpen(false)}
+                onFocus={() => setServicesDropdownOpen(true)}
+                onBlur={() => setServicesDropdownOpen(false)}
+                tabIndex={0}
+              >
+                <Link
+                  href="/services"
+                  tabIndex={0}
+                  className={`flex items-center rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition
+                    ${pathname === "/services" || pathname === "/services/" || pathname.startsWith("/services/") ? "bg-blue-700 text-white" : "text-blue-700 hover:bg-blue-700 hover:text-white"}
+                  `}
+                  aria-haspopup="true"
+                  aria-expanded={servicesDropdownOpen}
+                  onClick={() => setServicesDropdownOpen(false)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ")
+                      setServicesDropdownOpen(false);
+                  }}
+                >
+                  Services
+                  <ChevronDown
+                    className={`ml-1 h-4 w-4 transition-transform ${servicesDropdownOpen ? "rotate-180" : ""}`}
+                  />
+                </Link>
+                <div
+                  className={`absolute left-0 top-full z-40 min-w-[220px] rounded-md border border-slate-200 bg-white shadow-lg transition-all duration-300 ease-in-out origin-top overflow-hidden
+                    ${servicesDropdownOpen ? "scale-y-100 opacity-100 pointer-events-auto" : "scale-y-95 opacity-0 pointer-events-none"}`}
+                  style={{ transformOrigin: "top" }}
+                >
+                  <div className="py-2">
+                    {services.map((service) => (
+                      <Link
+                        key={service.href}
+                        href={service.href}
+                        className={`block w-full px-4 py-2 text-left text-sm transition
+                          ${pathname === service.href ? "bg-blue-700 text-white" : "text-blue-700 hover:bg-blue-700 hover:text-white"}
+                        `}
+                        onClick={() => setServicesDropdownOpen(false)}
+                      >
+                        {service.label}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
             {/* Destinations Dropdown (Desktop) */}
             <div className="relative group">
               <div
@@ -258,6 +318,32 @@ export function Header() {
                     onClick={closeMenu}
                   >
                     {dest.label}
+                  </Link>
+                ))}
+              </div>
+            </details>
+
+            {/* Services Dropdown (Mobile) */}
+            <details className="group" open={pathname.startsWith("/services/")}>
+              <summary
+                className={`flex cursor-pointer items-center rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition select-none
+                  ${pathname.startsWith("/services/") ? "bg-blue-700 text-white" : "text-blue-700 hover:bg-blue-700 hover:text-white"}
+                `}
+              >
+                Services
+                <ChevronDown className="ml-1 h-4 w-4 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="pl-4 pb-2 pt-1 flex flex-col gap-1">
+                {services.map((service) => (
+                  <Link
+                    key={service.href}
+                    href={service.href}
+                    className={`rounded-md px-3 py-2 text-sm font-medium transition
+                      ${pathname === service.href ? "bg-blue-700 text-white" : "text-blue-700 hover:bg-blue-700 hover:text-white"}
+                    `}
+                    onClick={closeMenu}
+                  >
+                    {service.label}
                   </Link>
                 ))}
               </div>

@@ -20,11 +20,11 @@ const destinationLinks = [
 ];
 
 const supportLinks = [
-  { label: "Application Guidance", href: "#" },
-  { label: "Visa Assistance", href: "#" },
-  { label: "Pre-Departure Support", href: "#" },
-  { label: "Scholarship Advice", href: "#" },
-  { label: "Parent Consultations", href: "#" },
+  { label: "Application Guidance", href: "/services/application-guidance" },
+  { label: "Visa Assistance", href: "/services/visa-assistance" },
+  { label: "Pre-Departure Support", href: "/services/pre-departure-support" },
+  { label: "Scholarship Advice", href: "/services/scholarship-advice" },
+  { label: "Parent Consultation", href: "/services/parent-consultation" },
 ];
 
 const socialLinks = [

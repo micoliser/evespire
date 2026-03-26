@@ -5,6 +5,7 @@ export function PageRouteHero({
   currentRoute,
   homeLabel = "Home",
   homeHref = "/",
+  previousRoutes = [],
 }) {
   return (
     <section className="relative overflow-hidden bg-slate-900 text-white">
@@ -19,6 +20,12 @@ export function PageRouteHero({
           >
             {homeLabel}
           </Link>
+          {previousRoutes.map((route, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <span className="text-slate-500">&gt;</span>
+              <span>{route}</span>
+            </div>
+          ))}
           <span className="text-slate-500">&gt;</span>
           <span>{currentRoute}</span>
         </div>

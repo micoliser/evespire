@@ -5,7 +5,7 @@ export default function ParentConsultation() {
     <ServicePageTemplate
       heading="Parent Consultation"
       currentRoute="Parent Consultation"
-      heroImage="https://placehold.co/600x300?text=Parent+Consultation"
+      heroImage="/images/c9rttLPYNWA.jpg"
       heroAlt="Parent Consultation"
       intro={{
         title: "Support for Parents",

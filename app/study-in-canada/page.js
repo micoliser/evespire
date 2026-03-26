@@ -3,7 +3,7 @@ import { DestinationPageTemplate } from "@/components/common/destination-page-te
 const pageData = {
   title: "Study in Canada",
   routeLabel: "Study in Canada",
-  heroImage: "/images/KUzlAah2dog.jpg",
+  heroImage: "/images/J2VNJcXqaFM.jpg",
   heroAlt: "International students discussing study options in Canada",
   intro:
     "Canada is consistently chosen for quality education, student-friendly cities, and practical work and settlement pathways after graduation.",

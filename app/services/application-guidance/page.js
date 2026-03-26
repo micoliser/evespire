@@ -5,7 +5,7 @@ export default function ApplicationGuidance() {
     <ServicePageTemplate
       heading="Application Guidance"
       currentRoute="Application Guidance"
-      heroImage="https://placehold.co/600x300?text=Application+Guidance"
+      heroImage="/images/OO69OocgC78.jpg"
       heroAlt="Application Guidance"
       intro={{
         title: "Personalized Application Support",

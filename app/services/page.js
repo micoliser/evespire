@@ -6,31 +6,31 @@ const services = [
   {
     label: "Application Guidance",
     href: "/services/application-guidance",
-    image: "https://placehold.co/400x200?text=Application+Guidance",
+    image: "/images/OO69OocgC78.jpg",
     desc: "Personalized support for university selection, personal statements, and application forms...",
   },
   {
     label: "Visa Assistance",
     href: "/services/visa-assistance",
-    image: "https://placehold.co/400x200?text=Visa+Assistance",
+    image: "/images/X0Osf55s5yk.jpg",
     desc: "Step-by-step help with visa documents, interviews, and up-to-date requirements...",
   },
   {
     label: "Pre-departure Support",
     href: "/services/pre-departure-support",
-    image: "https://placehold.co/400x200?text=Pre-departure+Support",
+    image: "/images/PjaFSKJEQCA.jpg",
     desc: "Guidance on travel, accommodation, and settling in for a smooth transition...",
   },
   {
     label: "Scholarship Advice",
     href: "/services/scholarship-advice",
-    image: "https://placehold.co/400x200?text=Scholarship+Advice",
+    image: "/images/T4QfHGrqT5k.jpg",
     desc: "Find scholarships, get help with essays, and maximize your funding opportunities...",
   },
   {
     label: "Parent Consultation",
     href: "/services/parent-consultation",
-    image: "https://placehold.co/400x200?text=Parent+Consultation",
+    image: "/images/c9rttLPYNWA.jpg",
     desc: "Support and information for parents to help their children succeed abroad...",
   },
 ];

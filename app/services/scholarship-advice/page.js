@@ -5,7 +5,7 @@ export default function ScholarshipAdvice() {
     <ServicePageTemplate
       heading="Scholarship Advice"
       currentRoute="Scholarship Advice"
-      heroImage="https://placehold.co/600x300?text=Scholarship+Advice"
+      heroImage="/images/T4QfHGrqT5k.jpg"
       heroAlt="Scholarship Advice"
       intro={{
         title: "Find and Win Scholarships",

@@ -3,7 +3,7 @@ import { DestinationPageTemplate } from "@/components/common/destination-page-te
 const pageData = {
   title: "Study in the UK/Europe",
   routeLabel: "Study in the UK/Europe",
-  heroImage: "/images/UA6h1Cs.jpg",
+  heroImage: "/images/yHYKcV-BAgY.jpg",
   heroAlt: "Students discussing options for universities in the UK and Europe",
   intro:
     "The UK and Europe remain top choices for international students because of globally ranked universities, diverse degree options, and access to international career networks.",

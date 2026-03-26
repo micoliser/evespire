@@ -140,7 +140,7 @@ export default function AboutPage() {
 
             <div className="evespire-delay-2 order-1 relative min-h-[320px] overflow-hidden border border-slate-200 bg-white shadow-sm sm:min-h-[380px] lg:order-2">
               <Image
-                src="/images/UA6h1Cs.jpg"
+                src="/images/huiJUttuiJPQ.png"
                 alt="Evespire team supporting students"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -156,7 +156,7 @@ export default function AboutPage() {
           <div className="grid items-stretch gap-8 lg:grid-cols-2">
             <div className="evespire-delay-1 order-1 relative min-h-[320px] overflow-hidden border border-slate-200 bg-slate-50 shadow-sm sm:min-h-[380px] lg:order-1">
               <Image
-                src="/images/euSe5fQjBiE.jpg"
+                src="/images/oiHYFUFfyyGF.jpg"
                 alt="Students planning international education journey"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

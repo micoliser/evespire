@@ -5,7 +5,7 @@ export default function VisaAssistance() {
     <ServicePageTemplate
       heading="Visa Assistance"
       currentRoute="Visa Assistance"
-      heroImage="https://placehold.co/600x300?text=Visa+Assistance"
+      heroImage="/images/X0Osf55s5yk.jpg"
       heroAlt="Visa Assistance"
       intro={{
         title: "Visa Application Made Simple",

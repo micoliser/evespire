@@ -5,7 +5,7 @@ export default function PreDepartureSupport() {
     <ServicePageTemplate
       heading="Pre-departure Support"
       currentRoute="Pre-departure Support"
-      heroImage="https://placehold.co/600x300?text=Pre-departure+Support"
+      heroImage="/images/PjaFSKJEQCA.jpg"
       heroAlt="Pre-departure Support"
       intro={{
         title: "Settle In With Confidence",

@@ -3,7 +3,7 @@ import { DestinationPageTemplate } from "@/components/common/destination-page-te
 const pageData = {
   title: "Study in Asia",
   routeLabel: "Study in Asia",
-  heroImage: "/images/euSe5fQjBiE.jpg",
+  heroImage: "/images/AVLGNZizmkU.jpg",
   heroAlt: "Students exploring study opportunities across Asia",
   intro:
     "Asia is increasingly attractive for international education because of strong universities, innovation-driven cities, and competitive costs in several countries.",

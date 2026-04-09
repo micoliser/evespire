@@ -61,11 +61,17 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [appointmentSidebarState, setAppointmentSidebarState] =
     useState("closed"); // "closed" | "opening" | "open" | "closing"
+  const [appointmentName, setAppointmentName] = useState("");
+  const [appointmentEmail, setAppointmentEmail] = useState("");
   const [appointmentDate, setAppointmentDate] = useState();
   const [appointmentTime, setAppointmentTime] = useState("");
   const [appointmentMode, setAppointmentMode] = useState("phone call");
   const [destDropdownOpen, setDestDropdownOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [appointmentFieldErrors, setAppointmentFieldErrors] = useState({});
+  const [appointmentApiError, setAppointmentApiError] = useState("");
+  const [appointmentSuccess, setAppointmentSuccess] = useState("");
+  const [isSubmittingAppointment, setIsSubmittingAppointment] = useState(false);
   const pathname = usePathname();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -73,12 +79,136 @@ export function Header() {
   const closeMenu = () => setIsOpen(false);
   const openAppointment = () => {
     setIsOpen(false);
+    setAppointmentName("");
+    setAppointmentEmail("");
+    setAppointmentDate(undefined);
+    setAppointmentTime("");
+    setAppointmentMode("phone call");
+    setAppointmentFieldErrors({});
+    setAppointmentApiError("");
+    setAppointmentSuccess("");
+    setIsSubmittingAppointment(false);
     setAppointmentSidebarState("opening");
     setTimeout(() => setAppointmentSidebarState("open"), 10);
   };
   const closeAppointment = () => {
     setAppointmentSidebarState("closing");
     setTimeout(() => setAppointmentSidebarState("closed"), 450);
+  };
+
+  const validateAppointmentForm = (values) => {
+    const errors = {};
+    const nameRegex = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const normalizedDate = new Date(values.date);
+
+    if (!values.fullName) {
+      errors.fullName = "Full name is required.";
+    } else if (!nameRegex.test(values.fullName)) {
+      errors.fullName =
+        "Full name must contain letters only, with a single space between names.";
+    }
+
+    if (!values.email) {
+      errors.email = "Email address is required.";
+    } else if (!emailRegex.test(values.email)) {
+      errors.email = "Please enter a valid email address.";
+    }
+
+    if (!values.date) {
+      errors.date = "Preferred date is required.";
+    } else if (Number.isNaN(normalizedDate.getTime())) {
+      errors.date = "Please select a valid preferred date.";
+    } else {
+      const selectedDay = new Date(normalizedDate);
+      selectedDay.setHours(0, 0, 0, 0);
+      if (selectedDay < today) {
+        errors.date = "Preferred date cannot be in the past.";
+      }
+    }
+
+    if (!values.time) {
+      errors.time = "Preferred time is required.";
+    } else if (!appointmentTimes.includes(values.time)) {
+      errors.time = "Please select a valid time slot.";
+    }
+
+    if (!values.mode) {
+      errors.mode = "Appointment mode is required.";
+    } else if (!["phone call", "whatsapp", "physical"].includes(values.mode)) {
+      errors.mode = "Please select a valid appointment mode.";
+    }
+
+    return errors;
+  };
+
+  const clearAppointmentFieldError = (field) => {
+    setAppointmentFieldErrors((prev) => {
+      if (!prev[field]) return prev;
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
+  };
+
+  const handleAppointmentSubmit = async (event) => {
+    event.preventDefault();
+
+    const values = {
+      fullName: String(appointmentName || "").trim(),
+      email: String(appointmentEmail || "").trim(),
+      date: appointmentDate ? appointmentDate.toISOString() : "",
+      time: String(appointmentTime || "").trim(),
+      mode: String(appointmentMode || "").trim(),
+    };
+
+    const errors = validateAppointmentForm(values);
+    if (Object.keys(errors).length > 0) {
+      setAppointmentFieldErrors(errors);
+      setAppointmentApiError("");
+      setAppointmentSuccess("");
+      return;
+    }
+
+    setAppointmentFieldErrors({});
+    setAppointmentApiError("");
+    setAppointmentSuccess("");
+    setIsSubmittingAppointment(true);
+
+    try {
+      const response = await fetch("/api/forms/appointment", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        if (data.fieldErrors && typeof data.fieldErrors === "object") {
+          setAppointmentFieldErrors(data.fieldErrors);
+        }
+        setAppointmentApiError(
+          data.message ||
+            "We could not submit your appointment right now. Please try again.",
+        );
+        return;
+      }
+
+      setAppointmentSuccess(
+        "Your appointment request has been received. We will contact you soon.",
+      );
+      setAppointmentName("");
+      setAppointmentEmail("");
+      setAppointmentDate(undefined);
+      setAppointmentTime("");
+      setAppointmentMode("phone call");
+    } catch {
+      setAppointmentApiError(
+        "Network error. Please check your connection and try again.",
+      );
+    } finally {
+      setIsSubmittingAppointment(false);
+    }
   };
 
   useEffect(() => {
@@ -422,7 +552,29 @@ export function Header() {
               </p>
             </div>
 
-            <form className="flex-1 space-y-4 overflow-y-auto px-5 py-5">
+            <form
+              className="flex-1 space-y-4 overflow-y-auto px-5 py-5"
+              onSubmit={handleAppointmentSubmit}
+              noValidate
+            >
+              {appointmentApiError && (
+                <div
+                  role="alert"
+                  className="rounded-xl border border-red-300/70 bg-red-100 px-4 py-3 text-sm text-red-800"
+                >
+                  <p>{appointmentApiError}</p>
+                </div>
+              )}
+
+              {appointmentSuccess && (
+                <div
+                  role="status"
+                  className="rounded-xl border border-emerald-300/70 bg-emerald-100 px-4 py-3 text-sm text-emerald-800"
+                >
+                  <p>{appointmentSuccess}</p>
+                </div>
+              )}
+
               <div className="space-y-2">
                 <Label htmlFor="appointmentName" className="text-blue-50">
                   Full Name
@@ -432,9 +584,65 @@ export function Header() {
                   name="appointmentName"
                   type="text"
                   placeholder="Your full name"
-                  className="h-11 rounded-md border-blue-300/35 bg-blue-950/25 px-3 text-blue-50 placeholder:text-blue-100/70"
+                  value={appointmentName}
+                  className={`h-11 rounded-md bg-blue-950/25 px-3 text-blue-50 placeholder:text-blue-100/70 ${appointmentFieldErrors.fullName ? "border-red-400 focus-visible:ring-red-200" : "border-blue-300/35"}`}
+                  aria-invalid={Boolean(appointmentFieldErrors.fullName)}
+                  aria-describedby={
+                    appointmentFieldErrors.fullName
+                      ? "appointmentName-error"
+                      : undefined
+                  }
+                  onChange={(event) => {
+                    setAppointmentName(event.target.value);
+                    clearAppointmentFieldError("fullName");
+                    if (appointmentApiError) setAppointmentApiError("");
+                    if (appointmentSuccess) setAppointmentSuccess("");
+                  }}
                   required
                 />
+                {appointmentFieldErrors.fullName && (
+                  <p
+                    id="appointmentName-error"
+                    className="text-sm text-red-200"
+                  >
+                    {appointmentFieldErrors.fullName}
+                  </p>
+                )}
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="appointmentEmail" className="text-blue-50">
+                  Email Address
+                </Label>
+                <Input
+                  id="appointmentEmail"
+                  name="appointmentEmail"
+                  type="email"
+                  placeholder="you@example.com"
+                  value={appointmentEmail}
+                  className={`h-11 rounded-md bg-blue-950/25 px-3 text-blue-50 placeholder:text-blue-100/70 ${appointmentFieldErrors.email ? "border-red-400 focus-visible:ring-red-200" : "border-blue-300/35"}`}
+                  aria-invalid={Boolean(appointmentFieldErrors.email)}
+                  aria-describedby={
+                    appointmentFieldErrors.email
+                      ? "appointmentEmail-error"
+                      : undefined
+                  }
+                  onChange={(event) => {
+                    setAppointmentEmail(event.target.value);
+                    clearAppointmentFieldError("email");
+                    if (appointmentApiError) setAppointmentApiError("");
+                    if (appointmentSuccess) setAppointmentSuccess("");
+                  }}
+                  required
+                />
+                {appointmentFieldErrors.email && (
+                  <p
+                    id="appointmentEmail-error"
+                    className="text-sm text-red-200"
+                  >
+                    {appointmentFieldErrors.email}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -443,9 +651,19 @@ export function Header() {
                 </Label>
                 <DatePicker
                   date={appointmentDate}
-                  onDateChange={setAppointmentDate}
+                  onDateChange={(date) => {
+                    setAppointmentDate(date);
+                    clearAppointmentFieldError("date");
+                    if (appointmentApiError) setAppointmentApiError("");
+                    if (appointmentSuccess) setAppointmentSuccess("");
+                  }}
                   placeholder="Select a date"
                   fromDate={today}
+                  triggerClassName={
+                    appointmentFieldErrors.date
+                      ? "!border-red-400 focus-visible:!ring-red-200"
+                      : ""
+                  }
                 />
                 <Input
                   id="appointmentDate"
@@ -457,6 +675,11 @@ export function Header() {
                   className="sr-only h-0 border-0 p-0"
                   required
                 />
+                {appointmentFieldErrors.date && (
+                  <p className="text-sm text-red-200">
+                    {appointmentFieldErrors.date}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-2">
@@ -466,12 +689,23 @@ export function Header() {
                 <Select
                   name="appointmentTime"
                   value={appointmentTime}
-                  onValueChange={setAppointmentTime}
+                  onValueChange={(value) => {
+                    setAppointmentTime(value);
+                    clearAppointmentFieldError("time");
+                    if (appointmentApiError) setAppointmentApiError("");
+                    if (appointmentSuccess) setAppointmentSuccess("");
+                  }}
                   required
                 >
                   <SelectTrigger
                     id="appointmentTime"
-                    className="!h-11 w-full rounded-md border-blue-300/35 bg-blue-950/25 px-3 text-blue-50 hover:bg-blue-900/35 focus:bg-blue-950/25 focus-visible:bg-blue-950/25 data-[state=open]:bg-blue-900/35 data-[placeholder]:text-blue-100/70"
+                    className={`!h-11 w-full rounded-md bg-blue-950/25 px-3 text-blue-50 hover:bg-blue-900/35 focus:bg-blue-950/25 focus-visible:bg-blue-950/25 data-[state=open]:bg-blue-900/35 data-[placeholder]:text-blue-100/70 ${appointmentFieldErrors.time ? "border-red-400 focus-visible:ring-red-200" : "border-blue-300/35"}`}
+                    aria-invalid={Boolean(appointmentFieldErrors.time)}
+                    aria-describedby={
+                      appointmentFieldErrors.time
+                        ? "appointmentTime-error"
+                        : undefined
+                    }
                   >
                     <SelectValue placeholder="Select a time slot" />
                   </SelectTrigger>
@@ -490,6 +724,14 @@ export function Header() {
                     </SelectGroup>
                   </SelectContent>
                 </Select>
+                {appointmentFieldErrors.time && (
+                  <p
+                    id="appointmentTime-error"
+                    className="text-sm text-red-200"
+                  >
+                    {appointmentFieldErrors.time}
+                  </p>
+                )}
               </div>
 
               <fieldset className="space-y-3">
@@ -499,12 +741,17 @@ export function Header() {
                 <RadioGroup
                   name="appointmentMode"
                   value={appointmentMode}
-                  onValueChange={setAppointmentMode}
+                  onValueChange={(value) => {
+                    setAppointmentMode(value);
+                    clearAppointmentFieldError("mode");
+                    if (appointmentApiError) setAppointmentApiError("");
+                    if (appointmentSuccess) setAppointmentSuccess("");
+                  }}
                   className="grid gap-2 sm:grid-cols-3"
                 >
                   <Label
                     htmlFor="mode-phone"
-                    className="cursor-pointer rounded-md border border-blue-300/35 bg-white/10 px-3 py-2 text-blue-50 has-[button[data-state=checked]]:border-blue-300/80 has-[button[data-state=checked]]:bg-blue-600/30"
+                    className={`cursor-pointer rounded-md border bg-white/10 px-3 py-2 text-blue-50 has-[button[data-state=checked]]:bg-blue-600/30 ${appointmentFieldErrors.mode ? "border-red-400" : "border-blue-300/35 has-[button[data-state=checked]]:border-blue-300/80"}`}
                   >
                     <RadioGroupItem
                       id="mode-phone"
@@ -516,7 +763,7 @@ export function Header() {
 
                   <Label
                     htmlFor="mode-whatsapp"
-                    className="cursor-pointer rounded-md border border-blue-300/35 bg-white/10 px-3 py-2 text-blue-50 has-[button[data-state=checked]]:border-blue-300/80 has-[button[data-state=checked]]:bg-blue-600/30"
+                    className={`cursor-pointer rounded-md border bg-white/10 px-3 py-2 text-blue-50 has-[button[data-state=checked]]:bg-blue-600/30 ${appointmentFieldErrors.mode ? "border-red-400" : "border-blue-300/35 has-[button[data-state=checked]]:border-blue-300/80"}`}
                   >
                     <RadioGroupItem
                       id="mode-whatsapp"
@@ -528,7 +775,7 @@ export function Header() {
 
                   <Label
                     htmlFor="mode-physical"
-                    className="cursor-pointer rounded-md border border-blue-300/35 bg-white/10 px-3 py-2 text-blue-50 has-[button[data-state=checked]]:border-blue-300/80 has-[button[data-state=checked]]:bg-blue-600/30"
+                    className={`cursor-pointer rounded-md border bg-white/10 px-3 py-2 text-blue-50 has-[button[data-state=checked]]:bg-blue-600/30 ${appointmentFieldErrors.mode ? "border-red-400" : "border-blue-300/35 has-[button[data-state=checked]]:border-blue-300/80"}`}
                   >
                     <RadioGroupItem
                       id="mode-physical"
@@ -538,13 +785,22 @@ export function Header() {
                     Physical
                   </Label>
                 </RadioGroup>
+                {appointmentFieldErrors.mode && (
+                  <p className="text-sm text-red-200">
+                    {appointmentFieldErrors.mode}
+                  </p>
+                )}
               </fieldset>
+
+              {/* Honeypot field - invisible to real users, traps bots */}
+              <input type="hidden" name="websiteUrl" value="" />
 
               <Button
                 type="submit"
+                disabled={isSubmittingAppointment}
                 className="mt-3 h-12 w-full rounded-md bg-cyan-400 font-semibold text-blue-950 shadow-md hover:bg-cyan-300"
               >
-                Book Appointment
+                {isSubmittingAppointment ? "Submitting..." : "Book Appointment"}
               </Button>
 
               <div className="rounded-xl border border-blue-500/35 bg-blue-950/45 p-4 text-sm">

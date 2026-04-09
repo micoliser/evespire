@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { PageRouteHero } from "@/components/common/page-route-hero";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,6 +17,136 @@ import { FaWhatsapp } from "react-icons/fa";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 
 export default function ContactPage() {
+  const [formValues, setFormValues] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    destination: "",
+    message: "",
+  });
+  const [fieldErrors, setFieldErrors] = useState({});
+  const [apiError, setApiError] = useState("");
+  const [apiSuccess, setApiSuccess] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const validateContactForm = (values) => {
+    const errors = {};
+    const nameRegex = /^[A-Za-z]+(?:\s[A-Za-z]+)*$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[+]?[(]?[0-9\s\-()]{7,20}$/;
+    const destinationRegex = /^[A-Za-z\s,&/-]+$/;
+
+    if (!values.fullName) {
+      errors.fullName = "Full name is required.";
+    } else if (!nameRegex.test(values.fullName)) {
+      errors.fullName =
+        "Full name must contain letters only, with a single space between names.";
+    }
+
+    if (!values.email) {
+      errors.email = "Email address is required.";
+    } else if (!emailRegex.test(values.email)) {
+      errors.email = "Please enter a valid email address.";
+    }
+
+    if (!values.phone) {
+      errors.phone = "Phone number is required.";
+    } else if (!phoneRegex.test(values.phone)) {
+      errors.phone = "Please enter a valid phone number.";
+    }
+
+    if (!values.destination) {
+      errors.destination = "Preferred destination is required.";
+    } else if (!destinationRegex.test(values.destination)) {
+      errors.destination =
+        "Preferred destination can only include letters, spaces, and common separators.";
+    }
+
+    if (!values.message) {
+      errors.message = "Message is required.";
+    } else if (values.message.length < 10) {
+      errors.message = "Message should be at least 10 characters long.";
+    }
+
+    return errors;
+  };
+
+  const clearFieldError = (field) => {
+    setFieldErrors((prev) => {
+      if (!prev[field]) return prev;
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
+  };
+
+  const handleInputChange = (field, value) => {
+    setFormValues((prev) => ({ ...prev, [field]: value }));
+    clearFieldError(field);
+    if (apiError) setApiError("");
+    if (apiSuccess) setApiSuccess("");
+  };
+
+  const handleContactSubmit = async (event) => {
+    event.preventDefault();
+
+    const values = {
+      fullName: formValues.fullName.trim(),
+      email: formValues.email.trim(),
+      phone: formValues.phone.trim(),
+      destination: formValues.destination.trim(),
+      message: formValues.message.trim(),
+    };
+
+    const errors = validateContactForm(values);
+    if (Object.keys(errors).length > 0) {
+      setFieldErrors(errors);
+      setApiError("");
+      setApiSuccess("");
+      return;
+    }
+
+    setFieldErrors({});
+    setApiError("");
+    setApiSuccess("");
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("/api/forms/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        if (data.fieldErrors && typeof data.fieldErrors === "object") {
+          setFieldErrors(data.fieldErrors);
+        }
+        setApiError(
+          data.message ||
+            "We could not submit your request right now. Please try again.",
+        );
+        return;
+      }
+
+      setApiSuccess(
+        "Your enquiry has been received. Our team will get back to you shortly.",
+      );
+      setFormValues({
+        fullName: "",
+        email: "",
+        phone: "",
+        destination: "",
+        message: "",
+      });
+    } catch {
+      setApiError("Network error. Please check your connection and try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <>
       <PageRouteHero heading="Contact Us" currentRoute="Contact" />
@@ -33,7 +166,29 @@ export default function ContactPage() {
                 you with practical next steps.
               </p>
 
-              <form className="mt-8 grid gap-5 sm:grid-cols-2">
+              {apiError && (
+                <div
+                  role="alert"
+                  className="mt-6 rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-700"
+                >
+                  <p>{apiError}</p>
+                </div>
+              )}
+
+              {apiSuccess && (
+                <div
+                  role="status"
+                  className="mt-6 rounded-xl border border-emerald-300 bg-emerald-50 px-4 py-3 text-sm text-emerald-700"
+                >
+                  <p>{apiSuccess}</p>
+                </div>
+              )}
+
+              <form
+                className="mt-8 grid gap-5 sm:grid-cols-2"
+                onSubmit={handleContactSubmit}
+                noValidate
+              >
                 <div className="space-y-2 sm:col-span-1">
                   <label
                     htmlFor="fullName"
@@ -41,7 +196,29 @@ export default function ContactPage() {
                   >
                     Full Name
                   </label>
-                  <Input id="fullName" name="fullName" placeholder="Sam John" />
+                  <Input
+                    id="fullName"
+                    name="fullName"
+                    placeholder="Sam John"
+                    value={formValues.fullName}
+                    aria-invalid={Boolean(fieldErrors.fullName)}
+                    aria-describedby={
+                      fieldErrors.fullName ? "fullName-error" : undefined
+                    }
+                    onChange={(event) =>
+                      handleInputChange("fullName", event.target.value)
+                    }
+                    className={
+                      fieldErrors.fullName
+                        ? "border-red-500 focus-visible:ring-red-200"
+                        : ""
+                    }
+                  />
+                  {fieldErrors.fullName && (
+                    <p id="fullName-error" className="text-sm text-red-600">
+                      {fieldErrors.fullName}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2 sm:col-span-1">
@@ -56,7 +233,25 @@ export default function ContactPage() {
                     name="email"
                     type="email"
                     placeholder="sam@example.com"
+                    value={formValues.email}
+                    aria-invalid={Boolean(fieldErrors.email)}
+                    aria-describedby={
+                      fieldErrors.email ? "email-error" : undefined
+                    }
+                    onChange={(event) =>
+                      handleInputChange("email", event.target.value)
+                    }
+                    className={
+                      fieldErrors.email
+                        ? "border-red-500 focus-visible:ring-red-200"
+                        : ""
+                    }
                   />
+                  {fieldErrors.email && (
+                    <p id="email-error" className="text-sm text-red-600">
+                      {fieldErrors.email}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2 sm:col-span-1">
@@ -70,7 +265,25 @@ export default function ContactPage() {
                     id="phone"
                     name="phone"
                     placeholder="+234 800 000 0000"
+                    value={formValues.phone}
+                    aria-invalid={Boolean(fieldErrors.phone)}
+                    aria-describedby={
+                      fieldErrors.phone ? "phone-error" : undefined
+                    }
+                    onChange={(event) =>
+                      handleInputChange("phone", event.target.value)
+                    }
+                    className={
+                      fieldErrors.phone
+                        ? "border-red-500 focus-visible:ring-red-200"
+                        : ""
+                    }
                   />
+                  {fieldErrors.phone && (
+                    <p id="phone-error" className="text-sm text-red-600">
+                      {fieldErrors.phone}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2 sm:col-span-1">
@@ -84,7 +297,25 @@ export default function ContactPage() {
                     id="destination"
                     name="destination"
                     placeholder="Europe, Canada, Australia..."
+                    value={formValues.destination}
+                    aria-invalid={Boolean(fieldErrors.destination)}
+                    aria-describedby={
+                      fieldErrors.destination ? "destination-error" : undefined
+                    }
+                    onChange={(event) =>
+                      handleInputChange("destination", event.target.value)
+                    }
+                    className={
+                      fieldErrors.destination
+                        ? "border-red-500 focus-visible:ring-red-200"
+                        : ""
+                    }
                   />
+                  {fieldErrors.destination && (
+                    <p id="destination-error" className="text-sm text-red-600">
+                      {fieldErrors.destination}
+                    </p>
+                  )}
                 </div>
 
                 <div className="space-y-2 sm:col-span-2">
@@ -98,13 +329,40 @@ export default function ContactPage() {
                     id="message"
                     name="message"
                     placeholder="Tell us your current level, preferred intake, and any questions you have."
-                    className="min-h-36"
+                    value={formValues.message}
+                    className={`min-h-36 ${fieldErrors.message ? "border-red-500 focus-visible:ring-red-200" : ""}`}
+                    aria-invalid={Boolean(fieldErrors.message)}
+                    aria-describedby={
+                      fieldErrors.message ? "message-error" : undefined
+                    }
+                    onChange={(event) =>
+                      handleInputChange("message", event.target.value)
+                    }
                   />
+                  {fieldErrors.message && (
+                    <p id="message-error" className="text-sm text-red-600">
+                      {fieldErrors.message}
+                    </p>
+                  )}
                 </div>
 
+                {/* Honeypot field - invisible to real users, traps bots */}
+                <input
+                  type="hidden"
+                  name="websiteUrl"
+                  value={formValues.websiteUrl || ""}
+                  onChange={(event) =>
+                    handleInputChange("websiteUrl", event.target.value)
+                  }
+                />
+
                 <div className="sm:col-span-2">
-                  <Button className="h-12 rounded-xl bg-blue-700 px-7 text-base font-semibold text-white hover:bg-blue-800">
-                    Submit Enquiry
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="h-12 rounded-xl bg-blue-700 px-7 text-base font-semibold text-white hover:bg-blue-800"
+                  >
+                    {isSubmitting ? "Submitting..." : "Submit Enquiry"}
                   </Button>
                 </div>
               </form>

@@ -5,6 +5,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Pacifico } from "next/font/google";
 import { Mail, MapPin, Menu, Phone, X, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { DatePicker } from "@/components/common/date-picker";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { navigate } from "next/dist/client/components/segment-cache/navigation";
+
 const destinations = [
   { label: "UK & Europe", href: "/study-in-uk-europe" },
   { label: "United States", href: "/study-in-us" },
@@ -20,19 +35,6 @@ const services = [
   { label: "Scholarship Advice", href: "/services/scholarship-advice" },
   { label: "Parent Consultation", href: "/services/parent-consultation" },
 ];
-import { Button } from "@/components/ui/button";
-import { DatePicker } from "@/components/common/date-picker";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 const pacifico = Pacifico({
   weight: "400",
@@ -272,6 +274,16 @@ export function Header() {
             >
               Home
             </Link>
+            <Link
+              href="/about"
+              className={`rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition ${
+                pathname === "/about"
+                  ? "bg-blue-700 text-white"
+                  : "text-blue-700 hover:bg-blue-700 hover:text-white"
+              }`}
+            >
+              About
+            </Link>
             {/* Services Dropdown (Desktop) */}
             <div className="relative group">
               <div
@@ -369,16 +381,6 @@ export function Header() {
               </div>
             </div>
             <Link
-              href="/about"
-              className={`rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition ${
-                pathname === "/about"
-                  ? "bg-blue-700 text-white"
-                  : "text-blue-700 hover:bg-blue-700 hover:text-white"
-              }`}
-            >
-              About
-            </Link>
-            <Link
               href="/contact"
               className={`rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition ${
                 pathname === "/contact"
@@ -427,6 +429,50 @@ export function Header() {
             >
               Home
             </Link>
+            <Link
+              href="/about"
+              className={`rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition ${
+                pathname === "/about"
+                  ? "bg-blue-700 text-white"
+                  : "text-blue-700 hover:bg-blue-700 hover:text-white"
+              }`}
+            >
+              About
+            </Link>
+
+            {/* Services Dropdown (Mobile) */}
+            <details
+              className="group"
+              open={
+                pathname === "/services" || pathname.startsWith("/services/")
+              }
+            >
+              <summary
+                className={`flex cursor-pointer items-center rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition select-none
+                  ${pathname === "/services" || pathname.startsWith("/services/") ? "bg-blue-700 text-white" : "text-blue-700 hover:bg-blue-700 hover:text-white"}
+                `}
+              >
+                <Link href="/services" onClick={closeMenu}>
+                  Services
+                </Link>
+                <ChevronDown className="ml-1 h-4 w-4 transition-transform group-open:rotate-180" />
+              </summary>
+              <div className="pl-4 pb-2 pt-1 flex flex-col gap-1">
+                {services.map((service) => (
+                  <Link
+                    key={service.href}
+                    href={service.href}
+                    className={`rounded-md px-3 py-2 text-sm font-medium transition
+                      ${pathname === service.href ? "bg-blue-700 text-white" : "text-blue-700 hover:bg-blue-700 hover:text-white"}
+                    `}
+                    onClick={closeMenu}
+                  >
+                    {service.label}
+                  </Link>
+                ))}
+              </div>
+            </details>
+
             {/* Destinations Dropdown (Mobile) */}
             <details className="group" open={pathname.startsWith("/study-in-")}>
               <summary
@@ -453,42 +499,6 @@ export function Header() {
               </div>
             </details>
 
-            {/* Services Dropdown (Mobile) */}
-            <details className="group" open={pathname.startsWith("/services/")}>
-              <summary
-                className={`flex cursor-pointer items-center rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition select-none
-                  ${pathname.startsWith("/services/") ? "bg-blue-700 text-white" : "text-blue-700 hover:bg-blue-700 hover:text-white"}
-                `}
-              >
-                Services
-                <ChevronDown className="ml-1 h-4 w-4 transition-transform group-open:rotate-180" />
-              </summary>
-              <div className="pl-4 pb-2 pt-1 flex flex-col gap-1">
-                {services.map((service) => (
-                  <Link
-                    key={service.href}
-                    href={service.href}
-                    className={`rounded-md px-3 py-2 text-sm font-medium transition
-                      ${pathname === service.href ? "bg-blue-700 text-white" : "text-blue-700 hover:bg-blue-700 hover:text-white"}
-                    `}
-                    onClick={closeMenu}
-                  >
-                    {service.label}
-                  </Link>
-                ))}
-              </div>
-            </details>
-            <Link
-              href="/about"
-              className={`rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition ${
-                pathname === "/about"
-                  ? "bg-blue-700 text-white"
-                  : "text-blue-700 hover:bg-blue-700 hover:text-white"
-              }`}
-              onClick={closeMenu}
-            >
-              About
-            </Link>
             <Link
               href="/contact"
               className={`rounded-md px-3 py-2 text-sm font-medium tracking-wide uppercase transition ${

@@ -104,6 +104,29 @@ const destinationCards = [
   },
 ];
 
+const studentReviews = [
+  {
+    name: "Student A",
+    reviewText:
+      "The support was clear from day one. I had a plan, deadlines, and strong document checks that helped me submit with confidence.",
+  },
+  {
+    name: "Student B",
+    reviewText:
+      "Every visa step was explained in simple terms. I knew exactly what to prepare, and the process felt organized and stress-free.",
+  },
+  {
+    name: "Student C",
+    reviewText:
+      "From school selection to pre-departure, the team stayed responsive and practical. It felt like having a trusted partner throughout.",
+  },
+  {
+    name: "Student D",
+    reviewText:
+      "I appreciated how simple the whole process felt. The guidance was practical, timely, and helped me stay on track from start to finish.",
+  },
+];
+
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [hasMounted, setHasMounted] = useState(false);
@@ -455,76 +478,95 @@ export default function Home() {
       </section>
 
       <ScrollRevealSection className="bg-slate-900 py-20 text-white">
-        <div className="mx-auto grid w-full max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[1.3fr_1fr]">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
           <div>
-            <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                Popular Destinations
-              </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
-                Choose a study destination that fits your future
-              </h2>
-            </div>
-
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {destinationCards.map((destination, index) => (
-                <Card
-                  key={destination.country}
-                  className={`evespire-delay-${index + 1} rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm transition duration-300 hover:bg-white/10`}
-                >
-                  <CardContent className="p-0">
-                    <img
-                      src={destination.flag}
-                      alt={`${destination.country} flag`}
-                      className="mb-3 h-7 w-11 rounded-sm object-cover shadow-md"
-                      loading="lazy"
-                    />
-                    <h3 className="text-lg font-semibold text-blue-700">
-                      {destination.country}
-                    </h3>
-                    <p className="mt-2 text-sm text-cyan-200">
-                      {destination.intake}
-                    </p>
-                    <p className="mt-3 text-sm text-slate-200">
-                      {destination.note}
-                    </p>
-                    <Link
-                      href={destination.href}
-                      className="mt-4 inline-flex text-sm font-semibold text-cyan-300 transition hover:text-cyan-200"
-                    >
-                      Learn more
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">
+              Choose a study destination that fits your future
+            </h2>
           </div>
 
-          <Card className="evespire-delay-2 rounded-3xl border border-white/15 bg-white/10 p-7 text-white backdrop-blur-md">
-            <h3 className="text-2xl font-semibold text-blue-700">
-              Why families trust Evespire
-            </h3>
-            <ul className="mt-6 space-y-4 text-slate-100">
-              <li className="flex items-start gap-3">
-                <span className="mt-1 h-2 w-2 rounded-full bg-cyan-300" />
-                Personalized guidance based on your country, budget, and goals.
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 h-2 w-2 rounded-full bg-cyan-300" />
-                Transparent process with deadline tracking and regular updates.
-              </li>
-              <li className="flex items-start gap-3">
-                <span className="mt-1 h-2 w-2 rounded-full bg-cyan-300" />
-                End-to-end support from application to arrival.
-              </li>
-            </ul>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2">
+            {destinationCards.map((destination, index) => (
+              <Card
+                key={destination.country}
+                className={`evespire-delay-${index + 1} rounded-2xl border border-white/15 bg-white/5 p-5 backdrop-blur-sm transition duration-300 hover:bg-white/10`}
+              >
+                <CardContent className="p-0">
+                  <img
+                    src={destination.flag}
+                    alt={`${destination.country} flag`}
+                    className="mb-3 h-7 w-11 rounded-sm object-cover shadow-md"
+                    loading="lazy"
+                  />
+                  <h3 className="text-lg font-semibold text-blue-700">
+                    {destination.country}
+                  </h3>
+                  <p className="mt-2 text-sm text-cyan-200">
+                    {destination.intake}
+                  </p>
+                  <p className="mt-3 text-sm text-slate-200">
+                    {destination.note}
+                  </p>
+                  <Link
+                    href={destination.href}
+                    className="mt-4 inline-flex text-sm font-semibold text-cyan-300 transition hover:text-cyan-200"
+                  >
+                    Learn more
+                  </Link>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </ScrollRevealSection>
 
-            <blockquote className="mt-8 rounded-2xl border border-white/20 bg-slate-950/40 p-4 text-sm leading-relaxed text-slate-200">
-              "I thought studying abroad was impossible from where I was.
-              Evespire made the process simple, clear, and realistic for my
-              family."
-            </blockquote>
-          </Card>
+      <ScrollRevealSection className="bg-slate-900 py-20 text-white">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+          <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="max-w-2xl space-y-4 text-slate-200">
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-cyan-300">
+                Why Evespire
+              </p>
+              <h2 className="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+                Why families trust Evespire
+              </h2>
+              <p className="text-base leading-relaxed sm:text-lg">
+                Families choose Evespire because they need clarity, not
+                confusion. We break down every step into practical actions, so
+                students and parents can make decisions with confidence.
+              </p>
+              <p className="text-base leading-relaxed text-slate-300 sm:text-lg">
+                Instead of generic advice, our team gives tailored direction for
+                your budget, destination, and timeline, then stays close through
+                applications, visa preparation, and pre-departure planning.
+              </p>
+            </div>
+
+            <Card className="w-full rounded-3xl border border-white/15 bg-white/10 p-7 text-white backdrop-blur-md lg:ml-auto lg:max-w-xl">
+              <ul className="space-y-4 text-slate-100">
+                <li className="flex items-start gap-3">
+                  <span className="mt-1 h-2 w-2 rounded-full bg-cyan-300" />
+                  Personalized guidance based on your country, budget, and
+                  goals.
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-1 h-2 w-2 rounded-full bg-cyan-300" />
+                  Transparent process with deadline tracking and regular
+                  updates.
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="mt-1 h-2 w-2 rounded-full bg-cyan-300" />
+                  End-to-end support from application to arrival.
+                </li>
+              </ul>
+
+              <blockquote className="mt-8 rounded-2xl border border-white/20 bg-slate-950/40 p-4 text-sm leading-relaxed text-slate-200">
+                "I thought studying abroad was impossible from where I was.
+                Evespire made the process simple, clear, and realistic for my
+                family."
+              </blockquote>
+            </Card>
+          </div>
         </div>
       </ScrollRevealSection>
 
@@ -554,7 +596,50 @@ export default function Home() {
         </div>
       </ScrollRevealSection>
 
-      <div className="h-[100px] bg-white" />
+      <ScrollRevealSection className="bg-white py-16 sm:py-20">
+        <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
+          <div className="text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
+              Student Reviews
+            </p>
+            <h2 className="mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+              What students say about their Evespire journey
+            </h2>
+          </div>
+
+          <div className="mt-10 grid gap-5 lg:grid-cols-2">
+            {studentReviews.map((review, index) => (
+              <Card
+                key={review.name}
+                className={`evespire-delay-${index + 1} border-0 bg-transparent shadow-none px-3`}
+              >
+                <CardContent className="p-0">
+                  <div className="flex items-center gap-4">
+                    <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-full bg-slate-100">
+                      <Image
+                        src="/images/anonymous-profile.svg"
+                        alt="Anonymous profile photo"
+                        fill
+                        sizes="80px"
+                        className="object-cover"
+                      />
+                    </div>
+
+                    <div className="min-w-0">
+                      <h3 className="text-lg font-semibold text-slate-900 sm:text-xl">
+                        {review.name}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-slate-600 sm:text-base">
+                        {review.reviewText}
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </ScrollRevealSection>
 
       <style jsx global>{`
         @keyframes evespireSlideInLeft {

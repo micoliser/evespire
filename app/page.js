@@ -11,20 +11,15 @@ import { ScrollRevealSection } from "@/components/common/scroll-reveal-section";
 const mediaItems = [
   {
     type: "image",
-    src: "/images/KUzlAah2dog.jpg",
-    alt: "Students in a classroom",
+    src: "/images/euSe5fQjBiE.jpg",
+    alt: "Educational consulting meeting",
   },
+  { type: "video", src: "/videos/4047759-uhd_2562_1440_30fps.mp4" },
   {
     type: "image",
     src: "/images/UA6h1Cs.jpg",
     alt: "Academic support session",
   },
-  {
-    type: "image",
-    src: "/images/euSe5fQjBiE.jpg",
-    alt: "Educational consulting meeting",
-  },
-  { type: "video", src: "/videos/4047759-uhd_2562_1440_30fps.mp4" },
   { type: "video", src: "/videos/83569b4f-3945-4ccb-a4e2-36898e5a7dbb.mp4" },
 ];
 

@@ -127,14 +127,13 @@ export default function AboutPage() {
                 Our Mission
               </p>
               <h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-                Supporting students from ambition to achievement
+                Transforming educational ambition into achievement.
               </h2>
               <p className="mt-4 text-slate-600">
-                Our mission is to bridge the gap between ambition and
-                achievement by providing comprehensive support to students
-                aspiring to study abroad. From personalized counseling to visa
-                processing, we are committed to making the journey to
-                international education seamless and accessible.
+                Powered by a global network of institutional partnerships and
+                driven by a team of passionate experts, we transform every
+                educational ambition into achievement and guide every aspiring
+                student from dream to degree with clarity, care, and confidence.
               </p>
             </div>
 
@@ -169,13 +168,12 @@ export default function AboutPage() {
                 Our Vision
               </p>
               <h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-                Becoming a trusted partner for global education success
+                Becoming a trusted gateway to worlds class education.
               </h2>
               <p className="mt-4 text-slate-600">
-                We envision a future where African students can confidently
-                access global opportunities with the right guidance and support.
-                Our goal is to be the most trusted education consulting partner
-                for families seeking long-term academic and career outcomes.
+                To be the world's most trusted gateway to world-class education
+                where every dream of learning beyond borders becomes a clear
+                path, an achievable goal, and a life-changing reality.
               </p>
             </div>
           </div>

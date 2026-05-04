@@ -591,7 +591,7 @@ export default function Home() {
         </div>
       </ScrollRevealSection>
 
-      <ScrollRevealSection className="bg-white py-16 sm:py-20">
+      {/* <ScrollRevealSection className="bg-white py-16 sm:py-20">
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
           <div className="text-center">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-blue-700">
@@ -634,7 +634,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </ScrollRevealSection>
+      </ScrollRevealSection> */}
 
       <style jsx global>{`
         @keyframes evespireSlideInLeft {

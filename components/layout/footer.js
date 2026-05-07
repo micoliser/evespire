@@ -54,11 +54,11 @@ export function Footer() {
             <div className="mt-6 space-y-3 text-sm text-slate-200">
               <div className="flex items-center gap-3">
                 <Mail className="h-4 w-4 text-cyan-400" />
-                <span>info@evespire.com</span>
+                <span>info@evespireedu.com</span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="h-4 w-4 text-cyan-400" />
-                <span>+234 800 000 0000</span>
+                <span>+234 911 3218 889</span>
               </div>
               <div className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 text-cyan-400" />

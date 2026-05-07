@@ -11,16 +11,26 @@ import { ScrollRevealSection } from "@/components/common/scroll-reveal-section";
 const mediaItems = [
   {
     type: "image",
-    src: "/images/euSe5fQjBiE.jpg",
-    alt: "Educational consulting meeting",
+    src: "/images/home-top-bg-1.png",
+    alt: "Happy students celebrating",
   },
-  { type: "video", src: "/videos/4047759-uhd_2562_1440_30fps.mp4" },
   {
     type: "image",
-    src: "/images/UA6h1Cs.jpg",
-    alt: "Academic support session",
+    src: "/images/home-top-bg-2.png",
+    alt: "Three students sitting together and looking at a laptop, smiling",
   },
-  { type: "video", src: "/videos/83569b4f-3945-4ccb-a4e2-36898e5a7dbb.mp4" },
+  { type: "video", src: "/videos/home-top-vid-1.mp4" },
+  {
+    type: "image",
+    src: "/images/home-top-bg-3.png",
+    alt: "Happy students in a school library",
+  },
+  {
+    type: "image",
+    src: "/images/home-top-bg-4.jpg",
+    alt: "Educational consulting meeting",
+  },
+  { type: "video", src: "/videos/home-top-vid-2.mp4" },
 ];
 
 const serviceCards = [
@@ -537,30 +547,16 @@ export default function Home() {
               </p>
             </div>
 
-            <Card className="w-full rounded-3xl border border-white/15 bg-white/10 p-7 text-white backdrop-blur-md lg:ml-auto lg:max-w-xl">
-              <ul className="space-y-4 text-slate-100">
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-cyan-300" />
-                  Personalized guidance based on your country, budget, and
-                  goals.
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-cyan-300" />
-                  Transparent process with deadline tracking and regular
-                  updates.
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="mt-1 h-2 w-2 rounded-full bg-cyan-300" />
-                  End-to-end support from application to arrival.
-                </li>
-              </ul>
-
-              <blockquote className="mt-8 rounded-2xl border border-white/20 bg-slate-950/40 p-4 text-sm leading-relaxed text-slate-200">
-                "I thought studying abroad was impossible from where I was.
-                Evespire made the process simple, clear, and realistic for my
-                family."
-              </blockquote>
-            </Card>
+            <div className="w-full overflow-hidden lg:ml-auto lg:max-w-xl">
+              <Image
+                src="/images/why-families-trust-evespire-image.png"
+                alt="Why families trust Evespire"
+                width={640}
+                height={480}
+                className="block h-auto w-full object-cover"
+                priority={false}
+              />
+            </div>
           </div>
         </div>
       </ScrollRevealSection>

@@ -139,7 +139,7 @@ export default function AboutPage() {
 
             <div className="evespire-delay-2 order-1 relative min-h-[320px] overflow-hidden border border-slate-200 bg-white shadow-sm sm:min-h-[380px] lg:order-2">
               <Image
-                src="/images/huiJUttuiJPQ.png"
+                src="/images/mission-image.png"
                 alt="Evespire team supporting students"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -155,7 +155,7 @@ export default function AboutPage() {
           <div className="grid items-stretch gap-8 lg:grid-cols-2">
             <div className="evespire-delay-1 order-1 relative min-h-[320px] overflow-hidden border border-slate-200 bg-slate-50 shadow-sm sm:min-h-[380px] lg:order-1">
               <Image
-                src="/images/oiHYFUFfyyGF.jpg"
+                src="/images/vision-image.png"
                 alt="Students planning international education journey"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -211,7 +211,7 @@ export default function AboutPage() {
           </div>
         </div>
       </ScrollRevealSection>
-
+      {/* 
       <ScrollRevealSection className="bg-white py-16">
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6">
           <div className="evespire-delay-1 text-center">
@@ -262,7 +262,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </ScrollRevealSection>
+      </ScrollRevealSection> */}
 
       <ScrollRevealSection className="bg-gradient-to-r from-blue-700 via-blue-600 to-cyan-600 py-16">
         <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-6 px-4 text-center text-white sm:px-6 lg:flex-row lg:text-left">

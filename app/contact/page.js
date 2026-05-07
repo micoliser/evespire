@@ -379,11 +379,11 @@ export default function ContactPage() {
                 <div className="mt-5 space-y-4 text-sm text-slate-700">
                   <div className="flex items-start gap-3">
                     <Mail className="mt-0.5 h-4 w-4 text-blue-700" />
-                    <span>info@evespire.com</span>
+                    <span>info@evespireedu.com</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <Phone className="mt-0.5 h-4 w-4 text-blue-700" />
-                    <span>+234 800 000 0000</span>
+                    <span>+234 911 3218 889</span>
                   </div>
                   <div className="flex items-start gap-3">
                     <MapPin className="mt-0.5 h-4 w-4 text-blue-700" />
@@ -416,7 +416,7 @@ export default function ContactPage() {
                     className="h-11 w-full rounded-xl bg-green-600 text-white hover:!bg-green-600 hover:!text-white active:!bg-green-600"
                   >
                     <a
-                      href="https://wa.me/2348000000000"
+                      href="https://wa.me/2349113218889"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
@@ -429,7 +429,7 @@ export default function ContactPage() {
                     asChild
                     className="h-11 w-full rounded-xl bg-blue-700 text-white hover:!bg-blue-700 hover:!text-white active:!bg-blue-700"
                   >
-                    <a href="tel:+2348000000000">
+                    <a href="tel:+2349113218889">
                       <Phone className="h-4 w-4" />
                       Place a Phone Call
                     </a>

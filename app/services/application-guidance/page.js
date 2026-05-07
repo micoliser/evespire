@@ -5,7 +5,7 @@ export default function ApplicationGuidance() {
     <ServicePageTemplate
       heading="Application Guidance"
       currentRoute="Application Guidance"
-      heroImage="/images/OO69OocgC78.jpg"
+      heroImage="/images/application-guidance-image.jpg"
       heroAlt="Application Guidance"
       intro={{
         title: "Personalized Application Support",

@@ -3,7 +3,7 @@ import { DestinationPageTemplate } from "@/components/common/destination-page-te
 const pageData = {
   title: "Study in Australia",
   routeLabel: "Study in Australia",
-  heroImage: "/images/yhjdGHNa.jpg",
+  heroImage: "/images/why-study-in-australia-image.png",
   heroAlt: "Students preparing for study opportunities in Australia",
   intro:
     "Australia is a top destination for students who want internationally recognized qualifications, high quality of life, and practical graduate outcomes.",

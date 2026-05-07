@@ -5,7 +5,7 @@ export default function VisaAssistance() {
     <ServicePageTemplate
       heading="Visa Assistance"
       currentRoute="Visa Assistance"
-      heroImage="/images/X0Osf55s5yk.jpg"
+      heroImage="/images/visa-assistance-image.jpg"
       heroAlt="Visa Assistance"
       intro={{
         title: "Visa Application Made Simple",

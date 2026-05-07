@@ -147,7 +147,7 @@ export function DestinationPageTemplate({
               className="h-12 rounded-xl p-0 border-none shadow-none bg-blue-700"
             >
               <a
-                href={`https://wa.me/2347012345678?text=${encodeURIComponent(
+                href={`https://wa.me/2349113218889?text=${encodeURIComponent(
                   `Hello, I am contacting Evespire to know more about studying in ${title.replace("Study in ", "")}`,
                 )}`}
                 target="_blank"

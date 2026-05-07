@@ -3,7 +3,7 @@ import { DestinationPageTemplate } from "@/components/common/destination-page-te
 const pageData = {
   title: "Study in the US",
   routeLabel: "Study in the US",
-  heroImage: "/images/YIdkWynJdSk.jpg",
+  heroImage: "/images/why-study-in-us-image.jpg",
   heroAlt: "Students in a US university counseling session",
   intro:
     "The United States is a leading destination for students seeking research depth, flexible academic pathways, and strong university-industry connections.",

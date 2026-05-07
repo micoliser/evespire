@@ -818,17 +818,17 @@ export function Header() {
                 <div className="mt-3 space-y-2 text-blue-100/95">
                   <p className="flex items-start gap-2">
                     <Phone className="mt-0.5 h-4 w-4" />
-                    <a href="tel:+2348000000000" className="hover:underline">
-                      +234 800 000 0000
+                    <a href="tel:+2349113218889" className="hover:underline">
+                      +234 911 3218 889
                     </a>
                   </p>
                   <p className="flex items-start gap-2">
                     <Mail className="mt-0.5 h-4 w-4" />
                     <a
-                      href="mailto:info@evespire.com"
+                      href="mailto:info@evespireedu.com"
                       className="hover:underline"
                     >
-                      info@evespire.com
+                      info@evespireedu.com
                     </a>
                   </p>
                   <p className="flex items-start gap-2">

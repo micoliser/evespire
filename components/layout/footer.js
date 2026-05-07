@@ -1,6 +1,12 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
-import { FaInstagram, FaFacebook, FaLinkedin, FaYoutube } from "react-icons/fa";
+import {
+  FaInstagram,
+  FaFacebook,
+  FaLinkedin,
+  FaYoutube,
+  FaTiktok,
+} from "react-icons/fa";
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -27,10 +33,19 @@ const supportLinks = [
 ];
 
 const socialLinks = [
-  { label: "Instagram", icon: FaInstagram, href: "#" },
-  { label: "Facebook", icon: FaFacebook, href: "#" },
-  { label: "LinkedIn", icon: FaLinkedin, href: "#" },
-  { label: "YouTube", icon: FaYoutube, href: "#" },
+  {
+    label: "Instagram",
+    icon: FaInstagram,
+    href: "https://www.instagram.com/evespireofficial",
+  },
+  {
+    label: "TikTok",
+    icon: FaTiktok,
+    href: "https://www.tiktok.com/evespireofficial",
+  },
+  // { label: "Facebook", icon: FaFacebook, href: "#" },
+  // { label: "LinkedIn", icon: FaLinkedin, href: "#" },
+  // { label: "YouTube", icon: FaYoutube, href: "#" },
 ];
 
 export function Footer() {

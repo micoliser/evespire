@@ -1,4 +1,5 @@
 import { ServicePageTemplate } from "@/components/common/service-page-template";
+import { buildMetadata } from "@/lib/seo";
 
 export default function PreDepartureSupport() {
   return (
@@ -40,4 +41,14 @@ export default function PreDepartureSupport() {
       ctaHref="/contact"
     />
   );
+}
+
+export function generateMetadata() {
+  return buildMetadata({
+    title: "Pre-departure Support",
+    description:
+      "Settle in with confidence: travel logistics, accommodation tips, health and safety, and cultural orientation.",
+    pathname: "/services/pre-departure-support",
+    image: "/images/pre-departure-support-image.jpg",
+  });
 }

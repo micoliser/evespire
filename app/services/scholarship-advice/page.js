@@ -1,4 +1,5 @@
 import { ServicePageTemplate } from "@/components/common/service-page-template";
+import { buildMetadata } from "@/lib/seo";
 
 export default function ScholarshipAdvice() {
   return (
@@ -40,4 +41,14 @@ export default function ScholarshipAdvice() {
       ctaHref="/contact"
     />
   );
+}
+
+export function generateMetadata() {
+  return buildMetadata({
+    title: "Scholarship Advice",
+    description:
+      "Find and win scholarships: identification, essay strategy, document checks, and interview preparation.",
+    pathname: "/services/scholarship-advice",
+    image: "/images/scholarship-advice-image.jpg",
+  });
 }

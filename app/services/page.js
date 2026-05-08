@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PageRouteHero } from "@/components/common/page-route-hero";
 import { ScrollRevealSection } from "@/components/common/scroll-reveal-section";
+import { buildMetadata } from "@/lib/seo";
 
 const services = [
   {
@@ -85,4 +86,14 @@ export default function ServicesPage() {
       </ScrollRevealSection>
     </main>
   );
+}
+
+export function generateMetadata() {
+  return buildMetadata({
+    title: "Our Services",
+    description:
+      "Comprehensive support including application guidance, visa assistance, scholarship advice and pre-departure support to help you study abroad.",
+    pathname: "/services",
+    image: "/images/application-guidance-image.jpg",
+  });
 }

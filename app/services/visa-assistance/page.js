@@ -1,4 +1,5 @@
 import { ServicePageTemplate } from "@/components/common/service-page-template";
+import { buildMetadata } from "@/lib/seo";
 
 export default function VisaAssistance() {
   return (
@@ -40,4 +41,14 @@ export default function VisaAssistance() {
       ctaHref="/contact"
     />
   );
+}
+
+export function generateMetadata() {
+  return buildMetadata({
+    title: "Visa Assistance",
+    description:
+      "Visa application made simple: document preparation, mock interviews, and up-to-date embassy requirements.",
+    pathname: "/services/visa-assistance",
+    image: "/images/visa-assistance-image.jpg",
+  });
 }

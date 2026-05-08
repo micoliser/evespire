@@ -1,4 +1,5 @@
 import { ServicePageTemplate } from "@/components/common/service-page-template";
+import { buildMetadata } from "@/lib/seo";
 
 export default function ApplicationGuidance() {
   return (
@@ -40,4 +41,14 @@ export default function ApplicationGuidance() {
       ctaHref="/contact"
     />
   );
+}
+
+export function generateMetadata() {
+  return buildMetadata({
+    title: "Application Guidance",
+    description:
+      "Personalized application support: university selection, personal statements, and application portal guidance.",
+    pathname: "/services/application-guidance",
+    image: "/images/application-guidance-image.jpg",
+  });
 }

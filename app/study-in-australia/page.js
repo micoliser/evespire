@@ -1,4 +1,5 @@
 import { DestinationPageTemplate } from "@/components/common/destination-page-template";
+import { buildMetadata } from "@/lib/seo";
 
 const pageData = {
   title: "Study in Australia",
@@ -50,4 +51,13 @@ const pageData = {
 
 export default function StudyInAustraliaPage() {
   return <DestinationPageTemplate {...pageData} />;
+}
+
+export function generateMetadata() {
+  return buildMetadata({
+    title: pageData.title,
+    description: pageData.intro,
+    pathname: "/study-in-australia",
+    image: pageData.heroImage,
+  });
 }

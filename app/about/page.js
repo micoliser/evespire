@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { PageRouteHero } from "@/components/common/page-route-hero";
 import { ScrollRevealSection } from "@/components/common/scroll-reveal-section";
+import { buildMetadata } from "@/lib/seo";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { GraduationCap, ScrollText, ShieldCheck } from "lucide-react";
@@ -291,4 +292,14 @@ export default function AboutPage() {
       <div className="h-[100px] bg-white" />
     </>
   );
+}
+
+export function generateMetadata() {
+  return buildMetadata({
+    title: "About Evespire",
+    description:
+      "Evespire Investment Limited is an education consulting team focused on helping students and families make confident study abroad decisions.",
+    pathname: "/about",
+    image: "/images/mission-image.png",
+  });
 }

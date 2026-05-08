@@ -1,4 +1,5 @@
 import { ServicePageTemplate } from "@/components/common/service-page-template";
+import { buildMetadata } from "@/lib/seo";
 
 export default function ParentConsultation() {
   return (
@@ -40,4 +41,14 @@ export default function ParentConsultation() {
       ctaHref="/contact"
     />
   );
+}
+
+export function generateMetadata() {
+  return buildMetadata({
+    title: "Parent Consultation",
+    description:
+      "Support for parents: workshops, financial planning, and guidance to help families support students studying abroad.",
+    pathname: "/services/parent-consultation",
+    image: "/images/parent-consultation-image.jpg",
+  });
 }
